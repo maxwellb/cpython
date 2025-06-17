@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   notify-new-bugs-announce:
+    if: false # Disable job in this fork
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

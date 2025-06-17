@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - 'main'
-    - '3.*'
+    - 'dev'
+    - 'maxwellb/3.*'
   pull_request:
     branches:
-    - 'main'
-    - '3.*'
+    - 'dev'
+    - 'maxwellb/3.*'
 
 permissions:
   contents: read
@@ -164,11 +164,11 @@ jobs:
       matrix:
         arch:
           - x64
-          - Win32
-          - arm64
+          # - Win32
+          # - arm64
         free-threading:
           - false
-          - true
+          # - true
         exclude:
           # Skip Win32 on free-threaded builds
           - { arch: Win32, free-threading: true }
@@ -186,9 +186,9 @@ jobs:
       fail-fast: false
       matrix:
         arch:
-        - x86
+        # - x86
         - x64
-        - arm64
+        # - arm64
     uses: ./.github/workflows/reusable-windows-msi.yml
     with:
       arch: ${{ matrix.arch }}
@@ -198,7 +198,7 @@ jobs:
       macOS
       ${{ fromJSON(matrix.free-threading) && '(free-threading)' || '' }}
     needs: build-context
-    if: needs.build-context.outputs.run-tests == 'true'
+    if: false # Disable job in this fork # needs.build-context.outputs.run-tests == 'true'
     strategy:
       fail-fast: false
       matrix:
@@ -233,7 +233,7 @@ jobs:
       ${{ fromJSON(matrix.free-threading) && '(free-threading)' || '' }}
       ${{ fromJSON(matrix.bolt) && '(bolt)' || '' }}
     needs: build-context
-    if: needs.build-context.outputs.run-tests == 'true'
+    if: false # Disable job in this fork # needs.build-context.outputs.run-tests == 'true'
     strategy:
       fail-fast: false
       matrix:
@@ -265,7 +265,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     needs: build-context
-    if: needs.build-context.outputs.run-tests == 'true'
+    if: false # Disable job in this fork # needs.build-context.outputs.run-tests == 'true'
     strategy:
       fail-fast: false
       matrix:
@@ -335,7 +335,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     needs: build-context
-    if: needs.build-context.outputs.run-tests == 'true'
+    if: false # Disable job in this fork # needs.build-context.outputs.run-tests == 'true'
     env:
       OPENSSL_VER: 3.0.16
       PYTHONSTRICTEXTENSIONBUILD: 1
@@ -451,7 +451,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     needs: build-context
-    if: needs.build-context.outputs.run-tests == 'true'
+    if: false # Disable job in this fork # needs.build-context.outputs.run-tests == 'true'
     strategy:
       fail-fast: false
       matrix:
@@ -515,7 +515,7 @@ jobs:
       Thread sanitizer
       ${{ fromJSON(matrix.free-threading) && '(free-threading)' || '' }}
     needs: build-context
-    if: needs.build-context.outputs.run-tests == 'true'
+    if: false # Disable job in this fork # needs.build-context.outputs.run-tests == 'true'
     strategy:
       fail-fast: false
       matrix:
@@ -532,7 +532,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     needs: build-context
-    if: needs.build-context.outputs.run-tests == 'true'
+    if: false # Disable job in this fork # needs.build-context.outputs.run-tests == 'true'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -573,7 +573,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     needs: build-context
-    if: needs.build-context.outputs.run-ci-fuzz == 'true'
+    if: false # Disable job in this fork # needs.build-context.outputs.run-ci-fuzz == 'true'
     permissions:
       security-events: write
     strategy:
@@ -627,7 +627,7 @@ jobs:
     - build-tsan
     - cross-build-linux
     - cifuzz
-    if: always()
+    if: false # Disable job in this fork # always()
 
     steps:
     - name: Check whether the needed jobs succeeded or failed
